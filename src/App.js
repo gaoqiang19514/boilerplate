@@ -1,8 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
 
-function App() {
+import { loadRepos } from "./actions";
+
+import logo from "./logo.svg";
+import "./App.css";
+
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +22,32 @@ function App() {
         >
           Learn React
         </a>
+        {props.loading ? <div>loading...</div> : <div>{props.name}</div>}
+        <button type="button" onClick={() => props.onLoadRepos()}>
+          loadRepos
+        </button>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    name: state.name,
+    loading: state.loading,
+    error: state.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLoadRepos: () => {
+      dispatch(loadRepos());
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
