@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
+import { getRepos } from './actions'
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +22,29 @@ function App() {
         >
           Learn React
         </a>
+        {props.loading ? (
+          <div>loading...</div>
+        ) : <div>{props.name}</div>}
+        <button type="button" onClick={() => props.onIncrement('lina')}>increment</button>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  console.log(state)
+  return {
+    name: state.name,
+    loading: state.loading,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onIncrement: (name) => {
+      dispatch(getRepos(name))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
