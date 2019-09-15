@@ -44,6 +44,33 @@ expect(mockFn).toHaveBeenCalledWith(1, 2, 3);
 使用场景：
 创建一个替身对象，代替真实的对象
 
+基本使用：
+1. mock掉指定模块
+```
+jest.mock('axios');
+```
+2. 实现需要mock的模块，在当前测试文件坐在的目录下创建__mocks__文件夹，创建需要被`mock`的目标模块，如下就`mock`了`axios`模块个`get`方法
+```
+export default {
+  get: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('tom')
+      }, 1000)
+    })
+  }
+}
+```
+3. 执行一些操作，以便`mock`的目标被执行
+```
+const instance = wrapper.instance()
+const data = await instance.loadUserName()
+```
+4. 断言结果
+```
+expect(data).toEqual('tom');
+```
+
 
 ##### `jest.spyOn`
 基本使用：

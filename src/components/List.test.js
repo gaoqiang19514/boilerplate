@@ -3,6 +3,8 @@ import { shallow } from "enzyme";
 
 import List from "./List";
 
+jest.mock('axios');
+
 describe("test jest.fn", () => {
   it("fn should be call", () => {
     const fn = jest.fn();
@@ -12,10 +14,21 @@ describe("test jest.fn", () => {
 });
 
 describe("test jest.mock", () => {
-  it("fn should be call", () => {
-    const fn = jest.fn();
-    shallow(<List loadData={fn} />);
-    expect(fn).toBeCalled();
+  it("fn should be call", async () => {
+    expect.assertions(4);
+
+    const spyLoadPost = jest.spyOn(List.prototype, 'loadUserName')
+    const wrapper = shallow(<List loadData={() => {}} />);
+
+    expect(wrapper.find('.username').text()).toEqual('')
+    // 1 执行this.loadUserName方法
+    // 2 等待异步请求执行完成后断言结果
+    const instance = wrapper.instance()
+    const data = await instance.loadUserName()
+    expect(data).toEqual('tom');
+    expect(wrapper.find('.username').text()).toEqual('tom')
+
+    expect(spyLoadPost).toBeCalled();
   });
 });
 
