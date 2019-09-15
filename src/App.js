@@ -1,8 +1,9 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-import Link from './components/Link'
+import Link from "./components/Link";
+import List from "./components/List";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           Learn React
         </a>
         <Link />
+        <List loadData={() => {}} />
       </header>
     </div>
   );

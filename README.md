@@ -46,11 +46,46 @@ expect(mockFn).toHaveBeenCalledWith(1, 2, 3);
 
 
 ##### `jest.spyOn`
+基本使用：
+1. 指定对象和需要监听的方法
+```
+const getSpy = jest.spyOn(axios, 'get')
+```
+2. 运行目标对象
+```
+shallow(<App />)
+```
+3. 对间谍函数进行断言
+```
+expect(getSpy).toBeCalled()
+```
+
 使用场景：
 检测`react`生命周期函数是否实际的执行
 
 
 ##### `enzyme`
+`enzyme`是一个测试工具，提供一些测试方法配合`jest`让我们能够更方便的编写测试用例
+(enzyme Introduction)[https://airbnb.io/enzyme/]
 
-expect.assertions(1);
+安装流程：
+1. 安装依赖包
+```
+npm install --save-dev enzyme enzyme-adapter-react-16
+```
+2. 启动设置
+在`src`目录下新建配置文件`setupTests.js`编写如下配置
+```
+import { configure } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+
+configure({ adapter: new Adapter() });
+```
+
+`shallow mount render`
+
+
+
+
+<!-- expect.assertions(1); -->
 <!-- 确保在异步的测试用例中，有一个断言会在回调函数中被执行，否则测试失败 -->
