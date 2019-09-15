@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`changes the class when hovered 1`] = `
+exports[`test snapshot changes the class when hovered 1`] = `
 <a
   className="normal"
   href="http://www.facebook.com"
@@ -11,7 +11,18 @@ exports[`changes the class when hovered 1`] = `
 </a>
 `;
 
-exports[`changes the class when hovered 2`] = `
+exports[`test snapshot changes the class when hovered 2`] = `
+<a
+  className="normal"
+  href="http://www.facebook.com"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Facebook
+</a>
+`;
+
+exports[`test snapshot changes the class when hovered 3`] = `
 <a
   className="hovered"
   href="http://www.facebook.com"
@@ -20,24 +31,4 @@ exports[`changes the class when hovered 2`] = `
 >
   Facebook
 </a>
-`;
-
-exports[`changes the class when hovered 3`] = `
-<a
-  className="normal"
-  href="http://www.facebook.com"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
->
-  Facebook
-</a>
-`;
-
-exports[`renders correctly 1`] = `
-<a
-  className="normal"
-  href="#"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-/>
 `;
