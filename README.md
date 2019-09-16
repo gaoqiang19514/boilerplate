@@ -14,6 +14,7 @@
 - 设置函数返回值
 - 改变函数的内部实现
 
+---
 
 ##### `jest.fn`
 注意：所创建的`mock`函数可以设置返回值，定义内部实现或返回`Promise`。
@@ -39,10 +40,11 @@ expect(mockFn).toBeCalledTimes(1);
 expect(mockFn).toHaveBeenCalledWith(1, 2, 3);
 ```
 
+---
 
 ##### `jest.mock`
 使用场景：
-创建一个替身对象，代替真实的对象
+创建一个替身对象，代替真实的对象，这样在一些场景下，不用真实的去执行某些依赖，比如异步请求
 
 基本使用：
 1. mock掉指定模块
@@ -71,6 +73,7 @@ const data = await instance.loadUserName()
 expect(data).toEqual('tom');
 ```
 
+---
 
 ##### `jest.spyOn`
 基本使用：
@@ -90,6 +93,7 @@ expect(getSpy).toBeCalled()
 使用场景：
 检测`react`生命周期函数是否实际的执行
 
+---
 
 ##### `enzyme`
 `enzyme`是一个测试工具，提供一些测试方法配合`jest`让我们能够更方便的编写测试用例
@@ -109,10 +113,50 @@ import Adapter from "enzyme-adapter-react-16";
 configure({ adapter: new Adapter() });
 ```
 
-`shallow mount render`
+---
 
+##### `shallow mount render`三者之间的差异和使用场景
+shallow
+虚拟`dom`
+不会渲染子组件
+不会执行react的生命周期函数
+可以模拟交互
 
+mount
+渲染真实的`dom`
+完整的渲染组件和子组件
+会执行`react`的生命周期
+可以模拟交互
+执行完成需要清理
+
+render
+将`React`组件渲染成静态的`HTML`，并使用`cheerio`进行解析，返回一个`Cheerio`实例对象
+完整的渲染组件和子组件
+对于snapshot使用`render`比较合适。
+
+---
+
+##### `sinon `
+
+---
+
+##### 测试覆盖率的概念
+
+---
 
 
 <!-- expect.assertions(1); -->
 <!-- 确保在异步的测试用例中，有一个断言会在回调函数中被执行，否则测试失败 -->
+
+断言元素数量
+expect(wrapper.find(Foo)).to.have.lengthOf(3);
+expect(wrapper.find('.icon-star')).to.have.lengthOf(1);
+expect(wrapper.contains(<div className="unique" />)).to.equal(true);
+
+断言函数执行情况
+```
+const onButtonClick = sinon.spy();
+const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
+wrapper.find('button').simulate('click');
+expect(onButtonClick).to.have.property('callCount', 1);
+```
