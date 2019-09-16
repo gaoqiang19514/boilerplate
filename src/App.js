@@ -2,7 +2,6 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   NavLink
 } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
@@ -12,34 +11,19 @@ import Home from "./pages/home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 
-const routes = [
-  { path: "/", name: "Home", Component: Home },
-  { path: "/about", name: "About", Component: About },
-  { path: "/contact", name: "Contact", Component: Contact }
-];
-
 function App() {
   return (
     <Router>
       <>
-        <div>
-          {routes.map(route => {
-            return (
-              <NavLink
-                key={route.path}
-                to={route.path}
-                activeClassName="active"
-                exact
-              >
-                {route.name}
-              </NavLink>
-            );
-          })}
-        </div>
+        <nav>
+          <NavLink to="/" activeClassName="active" exact>Home</NavLink>
+          <NavLink to="/about" activeClassName="active" exact>About</NavLink>
+          <NavLink to="/contact" activeClassName="active" exact>contact</NavLink>
+        </nav>
         <div className="container">
-          {routes.map(({ path, Component }) => (
-            <Route key={path} exact path={path}>
-              {({ match }) => (
+          <Route exact path="/">
+            {({ match }) => {
+              return (
                 <CSSTransition
                   in={match != null}
                   timeout={300}
@@ -47,12 +31,44 @@ function App() {
                   unmountOnExit
                 >
                   <div className="page">
-                    <Component />
+                    <Home />
                   </div>
                 </CSSTransition>
-              )}
-            </Route>
-          ))}
+              )
+            }}
+          </Route>
+          <Route exact path="/about">
+            {({ match }) => {
+              return (
+                <CSSTransition
+                  in={match != null}
+                  timeout={300}
+                  classNames="page"
+                  unmountOnExit
+                >
+                  <div className="page">
+                    <About />
+                  </div>
+                </CSSTransition>
+              )
+            }}
+          </Route>
+          <Route exact path="/contact">
+            {({ match }) => {
+              return (
+                <CSSTransition
+                  in={match != null}
+                  timeout={300}
+                  classNames="page"
+                  unmountOnExit
+                >
+                  <div className="page">
+                    <Contact />
+                  </div>
+                </CSSTransition>
+              )
+            }}
+          </Route>
         </div>
       </>
     </Router>
