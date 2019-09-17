@@ -1,0 +1,48 @@
+
+.fade-appear {
+  opacity: 0;
+}
+.fade-appear-active {
+  opacity: 1;
+  transition: all .3s;
+}
+.fade-appear-done {
+  opacity: 1;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: all .3s;
+}
+.fade-enter-done {
+  opacity: 1;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: all .3s;
+}
+.fade-exit-done {
+  opacity: 0;
+}
+
+/* 
+开始隐藏
+.xx-enter
+显示形态
+.xx-enter-done
+隐藏结束
+.xx-enter-done
+
+开始隐藏
+.xx-exit
+隐藏中
+.xx-exit .xx-exit-active
+隐藏结束
+.xx-exit-done
+*/
